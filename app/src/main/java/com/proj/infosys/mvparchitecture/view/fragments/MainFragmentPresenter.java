@@ -36,14 +36,15 @@ public class MainFragmentPresenter extends Fragment {
         setRetainInstance(true);
         mMainFragmentView = new MainFragmentView((MainActivity) getActivity());
         mMainFragmentView.showProgressDialog("Downloading ...");
-        if (isNetworkAvailable()) {
-            getResponseData();
-        }
+        mMainFragmentView.showToast("inside oncreate");
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (isNetworkAvailable()) {
+            getResponseData();
+        }
         mMainFragmentView.showToast("Inside onViewCreated");
         if (!isNetworkAvailable()) {
             if (retrieveDataFromSharedPrefs(getString(R.string.shared_Pref)) != null) {
