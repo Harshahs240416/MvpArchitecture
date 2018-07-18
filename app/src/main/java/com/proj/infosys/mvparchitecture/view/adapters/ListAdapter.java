@@ -20,7 +20,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.VH> {
 
     private List<Row> rowList;
 
-    public ListAdapter(String title, List<Row> rows) {
+    public ListAdapter(List<Row> rows) {
         this.rowList = rows;
     }
 
@@ -80,6 +80,5 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.VH> {
         }
 
     }
-
 
 }
