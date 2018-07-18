@@ -1,17 +1,19 @@
-package com.proj.infosys.mvparchitecture.view.interactor;
+package com.proj.infosys.mvparchitecture.interactor;
+
 import com.proj.infosys.mvparchitecture.network.ClientInterface;
 import com.proj.infosys.mvparchitecture.network.NetworkClient;
 import com.proj.infosys.mvparchitecture.model.Model;
 import com.proj.infosys.mvparchitecture.model.Row;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WebServiceImpl{
+public class WebServiceImpl {
 
-    List<Row> rowLists = new ArrayList<Row>();
-    String title;
+    Model mModel;
     WebServiceInterface mWebServiceInterface;
 
     public void getDataFromWebService(String baseUrl, WebServiceInterface webServiceInterface) {
@@ -22,14 +24,15 @@ public class WebServiceImpl{
 
             @Override
             public void onResponse(retrofit2.Call<Model> call, Response<Model> response) {
-                rowLists = response.body().getRows();
-                title = response.body().getTitle();
-                mWebServiceInterface.getDataFromWebService(rowLists, title);
+                mModel =response.body();
+                List<Row> rowLists = response.body().getRows();
+                String title = response.body().getTitle();
+                mWebServiceInterface.getDataFromWebService(response.body());
             }
 
             @Override
             public void onFailure(retrofit2.Call<Model> call, Throwable t) {
-                rowLists = null;
+                mModel = null;
             }
         });
     }
